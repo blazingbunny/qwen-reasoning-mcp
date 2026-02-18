@@ -78,7 +78,15 @@ with gr.Blocks(title="Qwen Reasoning MCP") as demo:
             
     submit_btn.click(fn=generate_reasoning, inputs=[prompt_input, max_tokens], outputs=output_text)
 
-# Launch as MCP Server
+# Launch with environment variable fallback for MCP
 if __name__ == "__main__":
-    # Gradio handles the MCP protocol mapping automatically
-    demo.launch(mcp_server=True)
+    import os
+    # Force MCP server mode via environment variable as a fallback
+    os.environ["GRADIO_MCP_SERVER"] = "True"
+    
+    try:
+        demo.launch(mcp_server=True)
+    except TypeError:
+        print("Warning: mcp_server argument not recognized by this Gradio version. Falling back to GRADIO_MCP_SERVER env var.")
+        demo.launch()
+
