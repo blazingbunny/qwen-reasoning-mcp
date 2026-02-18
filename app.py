@@ -2,6 +2,15 @@ import gradio as gr
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 import os
+from huggingface_hub import login
+
+# Set HF Token from environment for faster/unauthenticated-free downloads
+hf_token = os.getenv("HF_TOKEN")
+if hf_token:
+    print("HF_TOKEN found, logging in...")
+    login(token=hf_token)
+else:
+    print("Warning: HF_TOKEN not found in environment. Downloads may be slow or rate-limited.")
 
 # Load a tiny but capable model for reasoning
 # Qwen2.5-Coder-0.5B is optimized for code and logic, fitting well in HF Free Tier RAM
