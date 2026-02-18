@@ -1,7 +1,12 @@
-gradio[mcp]>=5.16.0
+# Gradio with MCP support (match working Jina space)
+gradio[mcp]>=5.0.0,<7.0.0
+
+# Core ML dependencies
+torch>=2.5.0
 transformers>=4.45.0
-torch
-accelerate
-sentencepiece
-protobuf
-mcp
+accelerate>=0.20.0
+sentencepiece>=0.1.99
+protobuf>=3.20.0
+
+# Hugging Face
+huggingface_hub>=0.20.0
